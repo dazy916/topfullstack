@@ -42,28 +42,32 @@ onMounted(() => {
   <template v-else>
     <router-view></router-view>
     <div class="navbar">
-        <input type="checkbox">
-        <span></span>
-        <span></span>
-        <ul>
-            <li><a href="javascript:void(0)">全景鸟瞰</a></li>
-            <li><a href="javascript:void(0)">园林</a></li>
-            <li><a href="javascript:void(0)">户型</a></li>
-            <li><a href="javascript:void(0)">关于</a></li>
-        </ul>
+      <input type="checkbox">
+      <span></span>
+      <span></span>
+      <ul>
+        <li><a href="javascript:void(0)">全景鸟瞰</a></li>
+        <li><a href="javascript:void(0)">园林</a></li>
+        <li><a href="javascript:void(0)">户型</a></li>
+        <li><a href="javascript:void(0)">关于</a></li>
+      </ul>
     </div>
   </template>
 </template>
 
 <style lang="less">
 html,
-body,ul,li {
+body,
+ul,
+li {
   margin: 0;
   padding: 0;
 }
-body{
-  background:#00595d
+
+body {
+  background: #00595d
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -254,93 +258,110 @@ h1 {
   }
 
 }
-/* 三个元素都需要弹性布局，所以写一块 */
-body,.navbar,.navbar ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-.navbar{
-    /* 相对定位 */
-    position: fixed;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 50px;
-    bottom: 10px;
-    left: 50%;
-    margin-left:-20px;
-}
-.navbar input{
-    width: 40px;
-    height: 40px;
-    /* 不透明度设置为0，直接变透明 */
-    opacity: 0;
-    /* 鼠标变小手 */
-    cursor: pointer;
-}
-.navbar span{
-    /* 绝对定位 */
-    position: absolute;
-    left: 20px;
-    /* 现将两条线都放到一起，然后单独设置第二条线的位置，calc方法可以自动计算数值 */
-    top: calc(50% - 10px);
-    width: 30px;
-    height: 4px;
-    border-radius: 15px;
-    background-color: #999;
-    /* 现在span覆盖着复选框，鼠标放到span上是点不中复选框的，这个属性就能解决这个问题，即便鼠标放到span上点击也能选中或取消选中复选框 */
-    pointer-events: none;
-    /* 收回来的时候过渡刚好是相反的 */
-    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out 0.3s;
-}
-/* 因为第二条线在navbar这个元素内的第三个位置，所这里写3 */
-.navbar span:nth-child(3){
-    top: calc(50% + 6px);
-}
-.navbar ul{
 
-    width: 0;
-    /* 溢出隐藏 */
-    overflow: hidden;
-    /* 现在展开和收起速度太快了，加个过渡 */
-    transition: all 0.5s;
-    /* 现在导航栏收起的时候，这个圆是扁的 */
-    /* 这个问题是因为文字被换行显示了，两个汉字竖着排列了，所以盒子被撑大了，下面这个属性就可以解决这个问题，让文字不换行显示 */
-    white-space: nowrap;
+/* 三个元素都需要弹性布局，所以写一块 */
+body,
+.navbar,
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
-.navbar ul li{
-    list-style: none;
-    margin:0px 15px;
+
+.navbar {
+  /* 相对定位 */
+  position: fixed;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 50px;
+  bottom: 10px;
+  left: 50%;
+  margin-left: -20px;
 }
-.navbar ul li a{
-    /* 取消下划线 */
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
+
+.navbar input {
+  width: 40px;
+  height: 40px;
+  /* 不透明度设置为0，直接变透明 */
+  opacity: 0;
+  /* 鼠标变小手 */
+  cursor: pointer;
 }
-.navbar ul li a:hover{
-    color:#00595d;
+
+.navbar span {
+  /* 绝对定位 */
+  position: absolute;
+  left: 20px;
+  /* 现将两条线都放到一起，然后单独设置第二条线的位置，calc方法可以自动计算数值 */
+  top: calc(50% - 10px);
+  width: 30px;
+  height: 4px;
+  border-radius: 15px;
+  background-color: #999;
+  /* 现在span覆盖着复选框，鼠标放到span上是点不中复选框的，这个属性就能解决这个问题，即便鼠标放到span上点击也能选中或取消选中复选框 */
+  pointer-events: none;
+  /* 收回来的时候过渡刚好是相反的 */
+  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out 0.3s;
 }
+
+/* 因为第二条线在navbar这个元素内的第三个位置，所这里写3 */
+.navbar span:nth-child(3) {
+  top: calc(50% + 6px);
+}
+
+.navbar ul {
+
+  width: 0;
+  /* 溢出隐藏 */
+  overflow: hidden;
+  /* 现在展开和收起速度太快了，加个过渡 */
+  transition: all 0.5s;
+  /* 现在导航栏收起的时候，这个圆是扁的 */
+  /* 这个问题是因为文字被换行显示了，两个汉字竖着排列了，所以盒子被撑大了，下面这个属性就可以解决这个问题，让文字不换行显示 */
+  white-space: nowrap;
+}
+
+.navbar ul li {
+  list-style: none;
+  margin: 0px 15px;
+}
+
+.navbar ul li a {
+  /* 取消下划线 */
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.navbar ul li a:hover {
+  color: #00595d;
+}
+
 /* :checked是当复选框被选中的时候，~是兄弟选择器，查找同一级的ul */
-.navbar input:checked{  
+.navbar input:checked {
+  .navbar {
     left: 0;
+  }
 }
-.navbar input:checked ~ ul{
-    width: 350px;
+
+.navbar input:checked~ul {
+  width: 350px;
 }
-.navbar input:checked ~ span:nth-child(2){
-    top: calc(50% - 2px);
-    transform: rotate(-45deg);
-    background-color: #00595d;
-    /* 这里先执行top，然后0.3秒后执行transform */
-    transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+
+.navbar input:checked~span:nth-child(2) {
+  top: calc(50% - 2px);
+  transform: rotate(-45deg);
+  background-color: #00595d;
+  /* 这里先执行top，然后0.3秒后执行transform */
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
 }
-.navbar input:checked ~ span:nth-child(3){
-    top: calc(50% - 2px);
-    transform: rotate(45deg);
-    background-color: #00595d;
-    transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+
+.navbar input:checked~span:nth-child(3) {
+  top: calc(50% - 2px);
+  transform: rotate(45deg);
+  background-color: #00595d;
+  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
 }
 </style>
