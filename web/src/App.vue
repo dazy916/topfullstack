@@ -1,24 +1,18 @@
 <script setup>
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
 // import TWEEN from '@tweenjs/tween.js'
 import { ref, onMounted, getCurrentInstance } from "vue"
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
-const faceShow = ref(true)
-onMounted(() => {
-  setTimeout(() => {
-    faceShow.value = false
-  }, 5000)
-})
-// const {
-//   proxy: { THREE },
-//   proxy: { ThreeStats }
-// } = getCurrentInstance();
+
 </script>
 
 <template>
-  <div class="container" v-if="faceShow">
+  <router-view>
+  </router-view>
+
+  <div class="container">
 
     <h1><img src="./assets/logo.png" alt="" width="50%" class="logo"></h1>
 
@@ -39,23 +33,39 @@ onMounted(() => {
     </div>
 
   </div>
-  <template v-else>
-    <router-view></router-view>
-    <div class="navbar">
-      <input type="checkbox">
-      <span></span>
-      <span></span>
-      <ul>
-        <li><a href="javascript:void(0)">全景鸟瞰</a></li>
-        <li><a href="javascript:void(0)">园林</a></li>
-        <li><a href="javascript:void(0)">户型</a></li>
-        <li><a href="javascript:void(0)">关于</a></li>
-      </ul>
-    </div>
-  </template>
+  <nav class="menu">
+    <input type="checkbox" class="menu-toggler" id="menu_toggler">
+    <label for="menu_toggler"></label>
+    <ul>
+      <li class="menu-item">
+        <a href="/"><i class="icon iconfont icon-vrquanjingtux" aria-hidden="true"></i>全景</a>
+      </li>
+      <li class="menu-item">
+        <a href="#"><i class="icon iconfont icon-VR" aria-hidden="true"></i>户型</a>
+      </li>
+      <li class="menu-item">
+        <a href="#"><i class="icon iconfont icon-VRquanjingtiyan-" aria-hidden="true"></i>园林</a>
+      </li>
+      <li class="menu-item">
+        <a href="./exemption"><i class="icon iconfont icon-dvr" aria-hidden="true"></i>关于</a>
+      </li>
+    </ul>
+  </nav>
+
 </template>
 
 <style lang="less">
+// 阿里字体图标设置
+.icon,
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 26px !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 html,
 body,
 ul,
@@ -66,6 +76,13 @@ li {
 
 body {
   background: #00595d
+}
+
+.main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 #app {
@@ -259,109 +276,184 @@ h1 {
 
 }
 
-/* 三个元素都需要弹性布局，所以写一块 */
-body,
-.navbar,
-.navbar ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.navbar {
-  /* 相对定位 */
+.menu {
   position: fixed;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 50px;
-  bottom: 10px;
-  left: 50%;
-  margin-left: -20px;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  z-index: 110;
 }
 
-.navbar input {
+.menu-toggler {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  margin: auto;
   width: 40px;
   height: 40px;
-  /* 不透明度设置为0，直接变透明 */
+  z-index: 2;
   opacity: 0;
-  /* 鼠标变小手 */
   cursor: pointer;
 }
 
-.navbar span {
-  /* 绝对定位 */
-  position: absolute;
-  left: 20px;
-  /* 现将两条线都放到一起，然后单独设置第二条线的位置，calc方法可以自动计算数值 */
-  top: calc(50% - 10px);
-  width: 30px;
-  height: 4px;
-  border-radius: 15px;
-  background-color: #999;
-  /* 现在span覆盖着复选框，鼠标放到span上是点不中复选框的，这个属性就能解决这个问题，即便鼠标放到span上点击也能选中或取消选中复选框 */
-  pointer-events: none;
-  /* 收回来的时候过渡刚好是相反的 */
-  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out 0.3s;
+.menu-toggler:hover+label,
+.menu-toggler:hover+label::before,
+.menu-toggler:hover+label::after {
+  background: #fff;
 }
 
-/* 因为第二条线在navbar这个元素内的第三个位置，所这里写3 */
-.navbar span:nth-child(3) {
-  top: calc(50% + 6px);
+.menu-toggler:checked+label {
+  background: transparent;
 }
 
-.navbar ul {
-
-  width: 0;
-  /* 溢出隐藏 */
-  overflow: hidden;
-  /* 现在展开和收起速度太快了，加个过渡 */
-  transition: all 0.5s;
-  /* 现在导航栏收起的时候，这个圆是扁的 */
-  /* 这个问题是因为文字被换行显示了，两个汉字竖着排列了，所以盒子被撑大了，下面这个属性就可以解决这个问题，让文字不换行显示 */
-  white-space: nowrap;
+.menu-toggler:checked+label::before,
+.menu-toggler:checked+label::after {
+  top: 0;
+  width: 40px;
+  transform-origin: 50% 50%;
 }
 
-.navbar ul li {
-  list-style: none;
-  margin: 0px 15px;
-}
-
-.navbar ul li a {
-  /* 取消下划线 */
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: 700;
-  color: #333;
-}
-
-.navbar ul li a:hover {
-  color: #00595d;
-}
-
-/* :checked是当复选框被选中的时候，~是兄弟选择器，查找同一级的ul */
-.navbar input:checked {
-  .navbar {
-    left: 0;
-  }
-}
-
-.navbar input:checked~ul {
-  width: 350px;
-}
-
-.navbar input:checked~span:nth-child(2) {
-  top: calc(50% - 2px);
-  transform: rotate(-45deg);
-  background-color: #00595d;
-  /* 这里先执行top，然后0.3秒后执行transform */
-  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
-}
-
-.navbar input:checked~span:nth-child(3) {
-  top: calc(50% - 2px);
+.menu-toggler:checked+label::before {
   transform: rotate(45deg);
-  background-color: #00595d;
-  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+}
+
+.menu-toggler:checked+label::after {
+  transform: rotate(-45deg);
+}
+
+.menu-toggler:checked~ul .menu-item {
+  opacity: 1;
+}
+
+.menu-toggler:checked~ul .menu-item:nth-child(1) {
+  transform: rotate(0deg) translateX(-110px);
+}
+
+.menu-toggler:checked~ul .menu-item:nth-child(2) {
+  transform: rotate(60deg) translateX(-110px);
+}
+
+.menu-toggler:checked~ul .menu-item:nth-child(3) {
+  transform: rotate(120deg) translateX(-110px);
+}
+
+.menu-toggler:checked~ul .menu-item:nth-child(4) {
+  transform: rotate(180deg) translateX(-110px);
+}
+
+.menu-toggler:checked~ul .menu-item:nth-child(5) {
+  transform: rotate(240deg) translateX(-110px);
+}
+
+.menu-toggler:checked~ul .menu-item:nth-child(6) {
+  transform: rotate(300deg) translateX(-110px);
+}
+
+.menu-toggler:checked~ul .menu-item a {
+  pointer-events: auto;
+}
+
+.menu-toggler+label {
+  width: 40px;
+  height: 5px;
+  display: block;
+  z-index: 1;
+  border-radius: 2.5px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: transform 0.5s, top 0.5s;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+.menu-toggler+label::before,
+.menu-toggler+label::after {
+  width: 40px;
+  height: 5px;
+  display: block;
+  z-index: 1;
+  border-radius: 2.5px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: transform 0.5s, top 0.5s;
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menu-toggler+label::before {
+  top: 10px;
+}
+
+.menu-toggler+label::after {
+  top: -10px;
+}
+
+.menu-item:nth-child(1) a {
+  transform: rotate(0deg);
+}
+
+.menu-item:nth-child(2) a {
+  transform: rotate(-60deg);
+}
+
+.menu-item:nth-child(3) a {
+  transform: rotate(-120deg);
+}
+
+.menu-item:nth-child(4) a {
+  transform: rotate(-180deg);
+}
+
+.menu-item:nth-child(5) a {
+  transform: rotate(-240deg);
+}
+
+.menu-item:nth-child(6) a {
+  transform: rotate(-300deg);
+}
+
+.menu-item {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.menu-item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: inherit;
+  height: inherit;
+  // line-height: 80px;
+  color: rgba(0, 89, 93, 0.7);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  pointer-events: none;
+  transition: 0.2s;
+  box-shadow: 0 2px 10px #333;
+}
+
+.menu-item a:hover {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  color: rgba(0, 89, 93, 0.7);
+  background: rgba(255, 255, 255, 1);
+  font-size: 16px;
 }
 </style>
