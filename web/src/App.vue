@@ -5,14 +5,38 @@ import { ref, onMounted, getCurrentInstance } from "vue"
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
-
+const faceShow = ref(true)
+const nav = [{
+  name: '全景',
+  path: '/index',
+  icon:'vrquanjingtux'
+}, {
+  name: '户型',
+  path: '/index',
+  icon:'VR'
+}, {
+  name: '园林',
+  path: '/index',
+  icon:'VRquanjingtiyan'
+}, {
+  name: '免责',
+  path: '/exemption',
+  icon:'dvr'
+}]
+const goPage = (path) => {
+  console.info(path)
+  router.push(path)
+}
+onMounted(() => {
+  setTimeout(() => {
+    faceShow.value = false
+  }, 5000)
+})
 </script>
 
 <template>
-  <router-view>
-  </router-view>
 
-  <div class="container">
+  <div class="container" v-if="faceShow">
 
     <h1><img src="./assets/logo.png" alt="" width="50%" class="logo"></h1>
 
@@ -33,25 +57,20 @@ const router = useRouter();
     </div>
 
   </div>
-  <nav class="menu">
-    <input type="checkbox" class="menu-toggler" id="menu_toggler">
-    <label for="menu_toggler"></label>
-    <ul>
-      <li class="menu-item">
-        <a href="/"><i class="icon iconfont icon-vrquanjingtux" aria-hidden="true"></i>全景</a>
-      </li>
-      <li class="menu-item">
-        <a href="#"><i class="icon iconfont icon-VR" aria-hidden="true"></i>户型</a>
-      </li>
-      <li class="menu-item">
-        <a href="#"><i class="icon iconfont icon-VRquanjingtiyan-" aria-hidden="true"></i>园林</a>
-      </li>
-      <li class="menu-item">
-        <a href="./exemption"><i class="icon iconfont icon-dvr" aria-hidden="true"></i>关于</a>
-      </li>
-    </ul>
-  </nav>
-
+  <template v-else>
+    <router-view>
+    </router-view>
+    <nav class="menu">
+      <input type="checkbox" class="menu-toggler" id="menu_toggler">
+      <label for="menu_toggler"></label>
+      <ul>
+        <li class="menu-item" v-for="item in nav" @click="goPage(item.path)">
+          <a href="#"><i :class="['icon', 'iconfont', 'icon-'+item.icon ]" aria-hidden="true"></i>{{ item.name }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </template>
 </template>
 
 <style lang="less">
