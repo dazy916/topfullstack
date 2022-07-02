@@ -43,7 +43,7 @@ name: "exemption"
 
     </div>
 </template>
-<style >
+<style scoped>
 .about {
     padding: 0 1rem 4.2rem 1rem;
     color: #eac699;

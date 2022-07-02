@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from "../router/router";
+import "./assets/iconfont/iconfont.js";
+import "./assets/iconfont/iconfont.css";
+
 import { Tabbar, TabbarItem,Tab, Tabs,Image as VanImage,Icon,Col, Row,Divider,Popup ,Button,Overlay  } from 'vant';
 
 

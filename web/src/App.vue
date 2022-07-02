@@ -7,7 +7,7 @@ const route = useRoute();
 const router = useRouter();
 const faceShow = ref(true)
 const nav = [{
-  name: '全景',
+  name: '鸟瞰',
   path: '/index',
   icon:'vrquanjingtux'
 }, {
@@ -17,7 +17,7 @@ const nav = [{
 }, {
   name: '园林',
   path: '/index',
-  icon:'VRquanjingtiyan'
+  icon:'VRquanjingtiyan-'
 }, {
   name: '免责',
   path: '/exemption',
