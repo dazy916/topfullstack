@@ -6,31 +6,36 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const faceShow = ref(true)
+const isIdx=ref(null)
 const nav = [{
   name: '鸟瞰',
   path: '/index',
-  icon:'vrquanjingtux'
+  icon: 'vrquanjingtux'
 }, {
   name: '户型',
-  path: '/index',
-  icon:'VR'
+  path: '/house',
+  icon: 'VR'
 }, {
   name: '园林',
-  path: '/index',
-  icon:'VRquanjingtiyan-'
+  path: '/garden',
+  icon: 'VRquanjingtiyan-'
 }, {
   name: '免责',
   path: '/exemption',
-  icon:'dvr'
+  icon: 'dvr'
 }]
 const goPage = (path) => {
-  console.info(path)
+  console.info(route.name)
+ nav.forEach((a,idx)=>{
+    if(a.path===path) isIdx.value=idx
+  })
   router.push(path)
 }
 onMounted(() => {
   setTimeout(() => {
     faceShow.value = false
   }, 5000)
+  
 })
 </script>
 
@@ -60,7 +65,15 @@ onMounted(() => {
   <template v-else>
     <router-view>
     </router-view>
-    <nav class="menu">
+    <nav class="newmenu">
+      <ul>
+        <li ><img src="./assets/logo.png" alt="" width="50" class="logo" /></li>
+        <li  v-for="(item,index) in nav" @click="goPage(item.path)">
+          <i :class="['icon', 'iconfont', 'icon-' + item.icon,{'isIdx':isIdx===index}]" aria-hidden="true"></i>{{ item.name }}
+        </li>
+      </ul>
+    </nav>
+    <!-- <nav class="menu">
       <input type="checkbox" class="menu-toggler" id="menu_toggler">
       <label for="menu_toggler"></label>
       <ul>
@@ -69,7 +82,7 @@ onMounted(() => {
           </a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
   </template>
 </template>
 
@@ -78,7 +91,7 @@ onMounted(() => {
 .icon,
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 26px !important;
+  font-size: 16px !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
@@ -133,6 +146,46 @@ h1 {
   }
 }
 
+.newmenu {
+  height: 3rem;
+  position: fixed;
+  bottom: .8rem;
+  left: .5rem;
+  right: .5rem;
+  ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+    li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 20%;
+      padding: .3rem 0;
+      background: radial-gradient(at center, rgb(2, 95, 80), rgb(0, 29, 34));
+      color: #fff;
+      font-size: 14px;
+      border-right: 1px solid rgb(2, 95, 80);
+      &:last-child{
+        border-bottom-right-radius: .5rem;
+        border-top-right-radius: .5rem;
+      }
+      &:first-child{
+        border-bottom-left-radius: .5rem;
+        border-top-left-radius: .5rem;
+        background-image: none;
+        background-color: rgb(194, 145, 82);
+      }
+      .isIdx{
+        color: rgb(250, 146, 85);    
+        text-shadow: 0 0 10px red,0 0 20px red,0 0 30px red,0 0 40px red;
+        // box-shadow: 0 0 10px rgb(0,153,184) inset,0 0 30px rgb(0,153,184);
+      }
+    }
+  }
+}
+
 .container {
   z-index: 1;
   position: relative;
@@ -142,7 +195,7 @@ h1 {
   justify-content: center;
   min-height: 100vh;
   // min-height: 35rem;
-  background-image: linear-gradient(to bottom, rgba(76, 255, 180, 0.6) 0%, rgba(13, 255, 134, 0.6) 100%), url('https://images.unsplash.com/photo-1446824505046-e43605ffb17f');
+  background-image: linear-gradient(to bottom, rgba(76, 255, 180, 0.6) 0%, rgba(13, 255, 134, 0.6) 100%), url('./assets/face.jpg');
   background-blend-mode: soft-light;
   background-size: cover;
   background-position: center center;
