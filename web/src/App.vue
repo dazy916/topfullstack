@@ -6,7 +6,7 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const faceShow = ref(true)
-const isIdx=ref(null)
+const isIdx = ref(null)
 const nav = [{
   name: '鸟瞰',
   path: '/index',
@@ -26,16 +26,19 @@ const nav = [{
 }]
 const goPage = (path) => {
   console.info(route.name)
- nav.forEach((a,idx)=>{
-    if(a.path===path) isIdx.value=idx
+  nav.forEach((a, idx) => {
+    if (a.path === path) isIdx.value = idx
   })
   router.push(path)
+}
+const fold = () => {
+  isIdx.value = isIdx.value < 0 ? 0 : -1
 }
 onMounted(() => {
   setTimeout(() => {
     faceShow.value = false
   }, 5000)
-  
+
 })
 </script>
 
@@ -65,11 +68,13 @@ onMounted(() => {
   <template v-else>
     <router-view>
     </router-view>
-    <nav class="newmenu">
+    <nav :class="['newmenu', { 'fold': isIdx < 0 }]">
       <ul>
-        <li ><img src="./assets/logo.png" alt="" width="50" class="logo" /></li>
-        <li  v-for="(item,index) in nav" @click="goPage(item.path)">
-          <i :class="['icon', 'iconfont', 'icon-' + item.icon,{'isIdx':isIdx===index}]" aria-hidden="true"></i>{{ item.name }}
+        <li @click="fold"><img src="./assets/logo.png" alt="" width="50" class="logo" /></li>
+        <li v-for="(item, index) in nav" @click="goPage(item.path)">
+          <i :class="['icon', 'iconfont', 'icon-' + item.icon, { 'isIdx': isIdx === index }]" aria-hidden="true"></i>{{
+              item.name
+          }}
         </li>
       </ul>
     </nav>
@@ -131,6 +136,10 @@ body {
   box-sizing: border-box;
 }
 
+.text-left {
+  text-align: left;
+}
+
 h1 {
   font-family: 'Arima Madurai', cursive;
   color: black;
@@ -152,10 +161,31 @@ h1 {
   bottom: .8rem;
   left: .5rem;
   right: .5rem;
+  z-index: 3;
+
+  &.fold {
+    width: 20%;
+
+    ul {
+      li {
+        width: 0;
+        display: none;
+
+        &:first-child {
+          width: 100%;
+          display: block;
+          border-bottom-right-radius: .5rem;
+          border-top-right-radius: .5rem;
+        }
+      }
+    }
+  }
+
   ul {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
     li {
       display: flex;
       flex-direction: column;
@@ -167,21 +197,25 @@ h1 {
       color: #fff;
       font-size: 14px;
       border-right: 1px solid rgb(2, 95, 80);
-      &:last-child{
+
+      &:last-child {
         border-bottom-right-radius: .5rem;
         border-top-right-radius: .5rem;
       }
-      &:first-child{
+
+      &:first-child {
         border-bottom-left-radius: .5rem;
         border-top-left-radius: .5rem;
         background-image: none;
         background-color: rgb(194, 145, 82);
       }
-      .isIdx{
-        color: rgb(250, 146, 85);    
-        text-shadow: 0 0 10px red,0 0 20px red,0 0 30px red,0 0 40px red;
+
+      .isIdx {
+        color: rgb(250, 146, 85);
+        text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
         // box-shadow: 0 0 10px rgb(0,153,184) inset,0 0 30px rgb(0,153,184);
       }
+
     }
   }
 }

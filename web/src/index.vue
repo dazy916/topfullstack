@@ -20,24 +20,24 @@ const status = reactive({ map: false, show: false })
                 <van-button
                     round
                     type="primary"
-                    url="https://www.amap.com/place/B0HU7CXT8R"
+                    url="https://www.amap.com/search?id=B0IR5U0Q0R&city=511524&geoobj=106.964799%7C27.032021%7C106.970147%7C27.037352&query_type=IDQ&query=%E4%B8%AD%E4%B8%9A%E5%92%8C%E5%BA%9C%E8%90%A5%E9%94%80%E4%B8%AD%E5%BF%83&zoom=17.5"
                 >高德地图</van-button>
             </van-col>
             <van-col span="12" v-if="status.map">
                 <van-button
                     round
                     type="primary"
-                    url="https://map.baidu.com/poi/%E6%B0%B4%E4%B8%9C%E5%A4%A7%E9%81%93/@11906252.005,3106598.13,19z?uid=cdea3a5565ebb27fcc04ef57&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&seckey=348b3ea8be0aad420af3f6fd20b5fe5d742b033169aaff9e55468f20442b2a4079fc11a7bd963ba9f8cb6be3ba7407e73b6fce9ae6fd7d808f0466c44c5b81ea98e8a84d585fdc79055e54e3f327772bbfaaa76f9d247a3ec940b1b12b0dc8d448852821004b3674fbb7dc4410c28fd972535645a1e228f212df9e3678aa8a5c6eddc68ded324baf47bfc5225509da8dd427ccb84ec77c75763fa28204c680aab519ce6f279e1426459298412761d5d6165ed40b3be96e4455f17272a487de126e5e45398636c1a1977df7ef2653dfdb48546ed9b321c32beb92b625ad9461fe4bdd43f07756f9b4aef23c854f1c7778&pcevaname=pc4.1&newfrom=zhuzhan_webmap&querytype=detailConInfo&da_src=shareurl"
+                    url="https://map.baidu.com/poi/%E4%B8%AD%E4%B8%9A%E5%92%8C%E5%BA%9C%E8%90%A5%E9%94%80%E4%B8%AD%E5%BF%83/@11680463.365,3303440.43,19z?uid=73358f8b84c8c1f058f6be6b&ugc_type=3&ugc_ver=1&device_ratio=1&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl"
                 >百度地图</van-button>
             </van-col>
             <van-col span="24" v-if="status.show">
-               <a href="tel:0851-87235888" class="van-button van-button--primary van-button--normal van-button--round" style="line-height: 2.6rem;">0851-87235888</a>
+               <a href="tel:0831-4866888" class="van-button van-button--primary van-button--normal van-button--round" style="line-height: 2.6rem;">0831-4866888</a>
             </van-col>
         </van-row>
     </van-overlay>
 
     <iframe
-        src="https://720yun.com/t/2bvkzqfm5fy"
+        src="https://720yun.com/vr/1b62cqpuctg"
         frameborder="no"
         class="main"
     ></iframe>
@@ -45,11 +45,11 @@ const status = reactive({ map: false, show: false })
 <style lang="less" scoped>
 .company {
     position: fixed;
-    width: 12rem;
-    height: 1rem;
+    width: 5rem;
+    height: 5rem;
     top: 1rem;
-    right: 1rem;
-    background-image: url("./assets/image/company.png");
+    left: 1rem;
+    background-image: url("./assets/logo.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -73,7 +73,7 @@ const status = reactive({ map: false, show: false })
     font-size: 2rem;
     i {
         display: inline-block;
-        margin-top: 2rem;
+        margin-top: 1rem;
         color: #ffffff;
     }
 }

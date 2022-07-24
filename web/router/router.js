@@ -4,6 +4,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from "vue-router
 import index from "../src/index.vue";
 import exemption from "../src/exemption.vue"
 import house from "../src/house.vue"
+import garden from "../src/garden.vue"
 
 // 2. 定义路由配置
 const routes = [
@@ -16,18 +17,26 @@ const routes = [
     name: "index",
     component: index
   },
-  { path: "/exemption",
-  name: "exemption", component: exemption },,
-  { path: "/house",
-    name: "house", component: house },
+  {
+    path: "/garden",
+    name: "garden", component: garden
+  },
+  {
+    path: "/exemption",
+    name: "exemption", component: exemption
+  },
+  {
+    path: "/house",
+    name: "house", component: house
+  },
 ];
 
 // 3. 创建路由实例
 const router = createRouter({
   // 4. 采用hash 模式
-  // history: createWebHashHistory(),
+  history: createWebHashHistory(),
   // 采用 history 模式
-  history: createWebHistory(),
+  // history: createWebHistory(),
   routes, // short for `routes: routes`
 });
 
